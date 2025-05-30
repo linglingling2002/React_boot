@@ -16,7 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 function App(): React.ReactElement {
-  // 添加状态管理
+
   const [inputText, setInputText] = useState<string>('');
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
@@ -25,7 +25,6 @@ function App(): React.ReactElement {
   const [tableData, setTableData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // 处理输入变化
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
@@ -90,7 +89,6 @@ function App(): React.ReactElement {
     }
   };
 
-
   // 关闭提示框
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -120,7 +118,6 @@ function App(): React.ReactElement {
         </Button>
       </Box>
 
-
       <Button
         variant="outlined"
         onClick={fetchData}
@@ -128,7 +125,6 @@ function App(): React.ReactElement {
         显示所有数据
       </Button>
 
-      {/* 数据表格 */}
       {tableData.length > 0 && (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="数据表格">
