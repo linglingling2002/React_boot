@@ -18,11 +18,8 @@ public class AppService {
     // 使用构造函数注入（推荐方式）
     @Autowired
     public AppService(AppMapper appMapper, GetDataMapper getDataMapper) {
-
         this.appMapper = appMapper;
-
         this.getDataMapper = getDataMapper;
-
     }
 
     public void saveAppText(String text){
@@ -33,6 +30,7 @@ public class AppService {
 
     /**
      * 获取所有数据
+     *
      * @return 数据列表
      */
     public List<GetDataEntity> getAllData() {

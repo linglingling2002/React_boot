@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetDataEntity {
+    private Integer id;
     private String content;
 
 }
