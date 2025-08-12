@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AppEntity {
-    private Long id;
+    private Integer id;
     private String content;
-
 }
