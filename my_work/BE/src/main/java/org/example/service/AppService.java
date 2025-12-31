@@ -18,8 +18,14 @@ public class AppService {
 
     private final DeleteDataMapper deleteDataMapper;
 
-    // 使用构造函数注入（推荐方式）
-    @Autowired
+    /**
+     * 构造
+     *
+     * @param appMapper appMapper
+     * @param getDataMapper getDataMapper
+     * @param deleteDataMapper deleteDataMapper
+     */
+    @Autowired   // 使用构造函数注入（推荐方式）
     public AppService(AppMapper appMapper, GetDataMapper getDataMapper,
             DeleteDataMapper deleteDataMapper) {
         this.appMapper = appMapper;
@@ -27,12 +33,22 @@ public class AppService {
         this.deleteDataMapper = deleteDataMapper;
     }
 
+    /**
+     * 新增数据
+     *
+     * @param text content
+     */
     public void saveAppText(String text){
         AppEntity entity = new AppEntity();
         entity.setContent(text);
         appMapper.insertApp(entity);
     }
 
+    /**
+     * 用id删除数据
+     *
+     * @param id id
+     */
     public void deleteById(String id){
         AppEntity entity = new AppEntity();
         entity.setId(id);
