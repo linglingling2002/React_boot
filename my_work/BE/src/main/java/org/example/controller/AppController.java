@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.dto.AppRequest;
+import org.example.dto.DeleteRequest;
 import org.example.model.GetDataEntity;
 import org.example.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,17 @@ public class AppController {
             appService.saveAppText(request.getContent());
             return ResponseEntity.ok("保存成功");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("保存数据失败: " + e.getMessage());
+            return ResponseEntity.badRequest().body("保存数据失败~: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteById(@RequestBody DeleteRequest request) {
+        try {
+            appService.deleteById(request.getId());
+            return ResponseEntity.ok("删除成功");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("删除数据失败^^: " + e.getMessage());
         }
     }
 

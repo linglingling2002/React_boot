@@ -18,6 +18,8 @@ import TextButton from "./components/TextButton";
 
 function App(): React.ReactElement {
   const [inputText, setInputText] = useState<string>("");
+  const [deleteText, setDeleteText] = useState<string>("");
+  
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
@@ -29,6 +31,9 @@ function App(): React.ReactElement {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
+  };
+  const deleteInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDeleteText(event.target.value);
   };
 
   // 在React组件中添加提交函数
@@ -47,11 +52,44 @@ function App(): React.ReactElement {
         setSnackbarMessage("保存成功");
         setOpenSnackbar(true);
         setInputText(""); // 清空输入框
+        fetchData();      // 刷新表格数据
       } else {
         const errorText = await response.text();
         console.error("响应错误:", errorText);
         setSnackbarSeverity("error");
         setSnackbarMessage(`保存失败: ${response.status} ${errorText}`);
+        setOpenSnackbar(true);
+      }
+    } catch (error: any) {
+      console.error("请求出错:", error);
+      setSnackbarSeverity("error");
+      setSnackbarMessage(`请求错误: ${error.message}`);
+      setOpenSnackbar(true);
+    }
+  };
+
+  // 删除函数
+  const deleteHandleSubmit = async () => {
+    try {
+      const response = await fetch("/api/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: deleteText }),
+      });
+
+      console.log("响应状态:", response.status);
+
+      if (response.ok) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("删除成功");
+        setOpenSnackbar(true);
+        setDeleteText(""); // 清空输入框
+        fetchData(); // 刷新数据
+      } else {
+        const errorText = await response.text();
+        console.error("响应错误:", errorText);
+        setSnackbarSeverity("error");
+        setSnackbarMessage(`删除失败: ${response.status} ${errorText}`);
         setOpenSnackbar(true);
       }
     } catch (error: any) {
@@ -106,6 +144,14 @@ function App(): React.ReactElement {
         inputText={inputText}
         onInputChange={handleInputChange}
         onSubmit={handleSubmit}
+      />
+      <TextButton
+        title="删除id :"
+        textFieldLabel="输入"
+        buttonText="删除"
+        inputText={deleteText}
+        onInputChange={deleteInputChange}
+        onSubmit={deleteHandleSubmit}
       />
 
       <Button

@@ -34,9 +34,11 @@ export default function TextButton({
         alignItems: "center",
         gap: 2,
         marginLeft: 3,
+        minWidth: 240,
+        marginTop: 2,
       }}
     >
-      <Typography variant="body1" gutterBottom sx={{ mb: 0 }}>
+      <Typography variant="body1" gutterBottom sx={{ mb: 0, minWidth: 140 }}>
         {title}
       </Typography>
 
@@ -47,7 +49,11 @@ export default function TextButton({
         onChange={onInputChange}
       />
 
-      <Button type="submit" variant="contained">
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{ height: 40, minWidth: 150 }}
+      >
         {buttonText}
       </Button>
     </Box>
